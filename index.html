@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC Stand Üretim Formu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .selected-card { border: 4px solid #2563eb !important; }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-10">
+
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">NFC Stand Üretim Formu</h1>
+
+        <form id="nfcForm" class="space-y-8">
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-4 border-b pb-2">1. Model Seçiniz</h3>
+                <div class="grid grid-cols-3 gap-4" id="modelSelection">
+                    <div onclick="selectModel('411')" id="model-411" class="cursor-pointer border-2 p-2 rounded-lg text-center hover:bg-blue-50">
+                        <div class="bg-gray-200 h-24 mb-2 flex items-center justify-center rounded">ID: 411</div>
+                        <span class="font-bold">Model 411</span>
+                    </div>
+                    <div onclick="selectModel('412')" id="model-412" class="cursor-pointer border-2 p-2 rounded-lg text-center hover:bg-blue-50">
+                        <div class="bg-gray-200 h-24 mb-2 flex items-center justify-center rounded">ID: 412</div>
+                        <span class="font-bold">Model 412</span>
+                    </div>
+                    <div onclick="selectModel('414')" id="model-414" class="cursor-pointer border-2 p-2 rounded-lg text-center hover:bg-blue-50">
+                        <div class="bg-gray-200 h-24 mb-2 flex items-center justify-center rounded">ID: 414</div>
+                        <span class="font-bold">Model 414</span>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedModel" required>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4 border-b pb-2">2. Stand Ana Rengi</h3>
+                <select id="baseColor" class="w-full p-3 border rounded-lg" required>
+                    <option value="">Renk Seçiniz...</option>
+                    <option value="Beyaz">Beyaz</option>
+                    <option value="Gri">Gri</option>
+                    <option value="Siyah">Siyah</option>
+                    <option value="Kırmızı">Kırmızı</option>
+                    <option value="Yeşil">Yeşil</option>
+                    <option value="Pembe">Pembe</option>
+                    <option value="Mavi">Mavi</option>
+                </select>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-2 border-b pb-2">3. İkonlar (En Fazla 3 Adet)</h3>
+                <p class="text-sm text-gray-500 mb-4">Lütfen stand üzerinde olmasını istediğiniz ikonları seçin.</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="iconSelection">
+                    <label class="flex items-center space-x-2 border p-3 rounded cursor-pointer hover:bg-gray-50">
+                        <input type="checkbox" name="icons" value="Google" class="w-5 h-5" onchange="checkLimit(this)"> <span>Google</span>
+                    </label>
+                    <label class="flex items-center space-x-2 border p-3 rounded cursor-pointer hover:bg-gray-50">
+                        <input type="checkbox" name="icons" value="Instagram" class="w-5 h-5" onchange="checkLimit(this)"> <span>Instagram</span>
+                    </label>
+                    <label class="flex items-center space-x-2 border p-3 rounded cursor-pointer hover:bg-gray-50">
+                        <input type="checkbox" name="icons" value="Websitesi" class="w-5 h-5" onchange="checkLimit(this)"> <span>Websitesi</span>
+                    </label>
+                    <label class="flex items-center space-x-2 border p-3 rounded cursor-pointer hover:bg-gray-50">
+                        <input type="checkbox" name="icons" value="TikTok" class="w-5 h-5" onchange="checkLimit(this)"> <span>TikTok</span>
+                    </label>
+                    <label class="flex items-center space-x-2 border p-3 rounded cursor-pointer hover:bg-gray-50">
+                        <input type="checkbox" name="icons" value="WhatsApp" class="w-5 h-5" onchange="checkLimit(this)"> <span>WhatsApp</span>
+                    </label>
+                    <label class="flex items-center space-x-2 border p-3 rounded cursor-pointer hover:bg-gray-50">
+                        <input type="checkbox" name="icons" value="Facebook" class="w-5 h-5" onchange="checkLimit(this)"> <span>Facebook</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4 border-b pb-2">4. İkon Rengi</h3>
+                <select id="iconColor" class="w-full p-3 border rounded-lg" required>
+                    <option value="Standart">Orijinal Renkler</option>
+                    <option value="Beyaz">Beyaz</option>
+                    <option value="Siyah">Siyah</option>
+                    <option value="Gold">Gold / Altın</option>
+                    <option value="Gümüş">Gümüş</option>
+                </select>
+            </div>
+
+            <div id="linksContainer" class="hidden">
+                <h3 class="text-lg font-semibold mb-4 border-b pb-2">5. İkon Linkleri</h3>
+                <div id="dynamicLinks" class="space-y-4"></div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold mb-4 border-b pb-2">6. İletişim ve Teslimat</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="name" placeholder="Ad Soyad" class="p-3 border rounded-lg" required>
+                    <input type="email" id="email" placeholder="E-posta" class="p-3 border rounded-lg" required>
+                    <input type="tel" id="phone" placeholder="Telefon (05xx...)" class="p-3 border rounded-lg" required>
+                    <textarea id="address" placeholder="Teslimat Adresi" class="p-3 border rounded-lg md:col-span-2" rows="3" required></textarea>
+                </div>
+            </div>
+
+            <button type="button" onclick="sendWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl transition duration-300 shadow-lg">
+                Siparişi WhatsApp ile Gönder
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function selectModel(id) {
+            document.getElementById('selectedModel').value = id;
+            document.querySelectorAll('#modelSelection div').forEach(el => el.classList.remove('selected-card'));
+            document.getElementById('model-' + id).classList.add('selected-card');
+        }
+
+        function checkLimit(checkbox) {
+            const checkboxes = document.querySelectorAll('input[name="icons"]:checked');
+            if (checkboxes.length > 3) {
+                checkbox.checked = false;
+                alert("En fazla 3 ikon seçebilirsiniz.");
+            }
+            updateLinkFields();
+        }
+
+        function updateLinkFields() {
+            const container = document.getElementById('linksContainer');
+            const dynamicLinks = document.getElementById('dynamicLinks');
+            const selectedIcons = document.querySelectorAll('input[name="icons"]:checked');
+            
+            dynamicLinks.innerHTML = '';
+            
+            if (selectedIcons.length > 0) {
+                container.classList.remove('hidden');
+                selectedIcons.forEach(icon => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <label class="block text-sm font-medium text-gray-700">${icon.value} Linki:</label>
+                        <input type="url" name="link_${icon.value}" placeholder="https://..." class="w-full p-2 border rounded mt-1" required>
+                    `;
+                    dynamicLinks.appendChild(div);
+                });
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        function sendWhatsApp() {
+            const model = document.getElementById('selectedModel').value;
+            const baseColor = document.getElementById('baseColor').value;
+            const iconColor = document.getElementById('iconColor').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            if(!model || !baseColor || !name || !phone || !address) {
+                alert("Lütfen tüm alanları doldurun.");
+                return;
+            }
+
+            let iconLinks = "";
+            const links = document.querySelectorAll('#dynamicLinks div');
+            links.forEach(linkDiv => {
+                const label = linkDiv.querySelector('label').innerText;
+                const url = linkDiv.querySelector('input').value;
+                iconLinks += `- ${label} ${url}%0A`;
+            });
+
+            const message = `*YENİ NFC STAND SİPARİŞİ*%0A%0A` +
+                            `*Model:* ${model}%0A` +
+                            `*Ana Renk:* ${baseColor}%0A` +
+                            `*İkon Rengi:* ${iconColor}%0A%0A` +
+                            `*İkonlar ve Linkler:*%0A${iconLinks}%0A` +
+                            `*Müşteri Bilgileri:*%0A` +
+                            `*İsim:* ${name}%0A` +
+                            `*Tel:* ${phone}%0A` +
+                            `*Adres:* ${address}`;
+
+            const whatsappNumber = "908503463240"; // BURAYA KENDİ NUMARANI YAZ (Örn: 905321234567)
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
