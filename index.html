@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFC Stand Üretim Formu | nfc.web.tr</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Görseller için ek stil */
+        .product-img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .hidden-section { display: none; margin-top: 30px; background: #f0f7ff; padding: 20px; border-radius: 15px; }
+    </style>
 </head>
 <body>
 
@@ -17,15 +29,15 @@
                 <h3><span>1</span> Stand Modeli Seçiniz</h3>
                 <div class="grid-select" id="modelSelection">
                     <div onclick="selectItem('model', '411', this)" class="select-card">
-                        <div class="placeholder-img">ID: 411</div>
+                        <img src="assets/411.png" alt="Model 411" class="product-img">
                         <strong>Model 411</strong>
                     </div>
                     <div onclick="selectItem('model', '412', this)" class="select-card">
-                        <div class="placeholder-img">ID: 412</div>
+                        <img src="assets/412.png" alt="Model 412" class="product-img">
                         <strong>Model 412</strong>
                     </div>
                     <div onclick="selectItem('model', '414', this)" class="select-card">
-                        <div class="placeholder-img">ID: 414</div>
+                        <img src="assets/414.png" alt="Model 414" class="product-img">
                         <strong>Model 414</strong>
                     </div>
                 </div>
@@ -91,15 +103,15 @@
                 <h3><span>4</span> İkon Rengi</h3>
                 <div class="grid-select" id="iconColorSelection">
                     <div onclick="selectItem('iconColor', 'Orijinal Renkler', this)" class="select-card">
-                        <div class="icon-color-preview multi-color"></div>
+                        <div class="icon-color-preview multi-color" style="background: linear-gradient(45deg, #4285F4, #EA4335, #34A853); width:40px; height:40px; border-radius:50%; margin:0 auto 10px;"></div>
                         <small>Orijinal</small>
                     </div>
                     <div onclick="selectItem('iconColor', 'Siyah', this)" class="select-card">
-                        <div class="icon-color-preview black-color"></div>
+                        <div class="icon-color-preview black-color" style="background:#000; width:40px; height:40px; border-radius:50%; margin:0 auto 10px;"></div>
                         <small>Siyah</small>
                     </div>
                     <div onclick="selectItem('iconColor', 'Beyaz', this)" class="select-card">
-                        <div class="icon-color-preview white-color"></div>
+                        <div class="icon-color-preview white-color" style="background:#fff; border:1px solid #ddd; width:40px; height:40px; border-radius:50%; margin:0 auto 10px;"></div>
                         <small>Beyaz</small>
                     </div>
                 </div>
@@ -108,16 +120,13 @@
 
             <div id="linksSection" class="hidden-section">
                 <h3><span>5</span> İkon Linkleri</h3>
-                <div id="dynamicLinks" class="space-y-links"></div>
+                <div id="dynamicLinks"></div>
             </div>
 
-            <section class="info-section">
+            <section style="margin-top:40px; background:#f8fafc; padding:25px; border-radius:20px;">
                 <h3><span>6</span> İletişim ve Teslimat</h3>
                 <div class="input-group">
                     <input type="text" id="name" placeholder="Ad Soyad" required>
-                    <input type="email" id="email" placeholder="E-posta Adresi" required>
-                </div>
-                <div class="input-group" style="margin-top:15px;">
                     <input type="tel" id="phone" placeholder="Telefon (05xx...)" required>
                 </div>
                 <textarea id="address" placeholder="Teslimat Adresi" rows="3" style="margin-top:15px;" required></textarea>
@@ -130,61 +139,48 @@
     </div>
 
     <script>
-        // Seçim fonksiyonu (Model, Renk, İkon Rengi için)
         function selectItem(type, value, element) {
             if(type === 'model') document.getElementById('selectedModel').value = value;
             if(type === 'color') document.getElementById('selectedBaseColor').value = value;
             if(type === 'iconColor') document.getElementById('selectedIconColor').value = value;
 
-            // Görsel olarak aktif class'ı ekle
             const parent = element.parentElement;
             parent.querySelectorAll('.select-card').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
         }
 
-        // 3 İkon sınırı kontrolü
         function checkLimit(checkbox) {
             const checkboxes = document.querySelectorAll('input[name="icons"]:checked');
             if (checkboxes.length > 3) {
                 checkbox.checked = false;
                 alert("Üretim gereği en fazla 3 ikon seçebilirsiniz.");
             }
-            
-            // Seçili olanların kart stilini değiştir
-            if(checkbox.checked) {
-                checkbox.parentElement.classList.add('active');
-            } else {
-                checkbox.parentElement.classList.remove('active');
-            }
+            if(checkbox.checked) checkbox.parentElement.classList.add('active');
+            else checkbox.parentElement.classList.remove('active');
             
             updateLinkFields();
         }
 
-        // Seçilen ikonlara göre link alanlarını oluştur
         function updateLinkFields() {
             const container = document.getElementById('linksSection');
             const dynamicLinks = document.getElementById('dynamicLinks');
             const selectedIcons = document.querySelectorAll('input[name="icons"]:checked');
-            
             dynamicLinks.innerHTML = '';
             
             if (selectedIcons.length > 0) {
                 container.style.display = 'block';
                 selectedIcons.forEach(icon => {
-                    const div = document.createElement('div');
-                    div.style.marginBottom = "15px";
-                    div.innerHTML = `
-                        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:5px;">${icon.value} Linki:</label>
-                        <input type="url" name="link_${icon.value}" placeholder="https://..." required>
-                    `;
-                    dynamicLinks.appendChild(div);
+                    dynamicLinks.innerHTML += `
+                        <div style="margin-bottom:15px;">
+                            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:5px;">${icon.value} Linki:</label>
+                            <input type="url" name="link_${icon.value}" placeholder="https://..." required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+                        </div>`;
                 });
             } else {
                 container.style.display = 'none';
             }
         }
 
-        // WhatsApp Mesajını Oluştur ve Gönder
         function sendWhatsApp() {
             const model = document.getElementById('selectedModel').value;
             const baseColor = document.getElementById('selectedBaseColor').value;
@@ -193,50 +189,29 @@
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
 
-            // Validasyon
             if(!model || !baseColor || !name || !phone || !address) {
-                alert("Lütfen tüm alanları doldurunuz ve seçimleri yapınız.");
+                alert("Lütfen tüm alanları doldurunuz.");
                 return;
             }
 
             let iconLinks = "";
-            const selectedIcons = document.querySelectorAll('input[name="icons"]:checked');
-            selectedIcons.forEach(icon => {
+            document.querySelectorAll('input[name="icons"]:checked').forEach(icon => {
                 const url = document.querySelector(`input[name="link_${icon.value}"]`).value;
                 iconLinks += `   - ${icon.value}: ${url}%0A`;
             });
-
-            if(selectedIcons.length === 0) {
-                alert("Lütfen en az 1 ikon seçiniz.");
-                return;
-            }
 
             const message = `*📦 YENİ NFC STAND SİPARİŞİ*%0A%0A` +
                             `*⚙️ MODEL:* ${model}%0A` +
                             `*🎨 ANA RENK:* ${baseColor}%0A` +
                             `*✨ İKON RENGİ:* ${iconColor}%0A%0A` +
-                            `*🔗 SEÇİLEN İKONLAR:*%0A${iconLinks}%0A` +
-                            `*👤 MÜŞTERİ BİLGİLERİ:*%0A` +
-                            `*İsim:* ${name}%0A` +
-                            `*Tel:* ${phone}%0A` +
-                            `*Adres:* ${address}`;
+                            `*🔗 LİNKLER:*%0A${iconLinks}%0A` +
+                            `*👤 MÜŞTERİ:* ${name}%0A` +
+                            `*📞 TEL:* ${phone}%0A` +
+                            `*📍 ADRES:* ${address}`;
 
-            const myPhoneNumber = "908503463240"; // KENDİ NUMARANI BURAYA YAZ
+            const myPhoneNumber = "908503463240"; 
             window.open(`https://wa.me/${myPhoneNumber}?text=${message}`, '_blank');
         }
     </script>
-
-    <style>
-        /* CSS dosyasını dışarıdan alamazsanız diye kritik eklemeler */
-        .hidden-section { display: none; margin-top: 30px; background: #f0f7ff; padding: 20px; border-radius: 15px; }
-        .placeholder-img { height: 80px; background: #eee; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; }
-        .icon-color-preview { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 10px; border: 1px solid #ddd; }
-        .multi-color { background: linear-gradient(45deg, #4285F4, #EA4335, #34A853); }
-        .black-color { background: #000; }
-        .white-color { background: #fff; }
-        .checkbox-label { display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; }
-        .checkbox-label input { width: auto; }
-        section { margin-bottom: 40px; }
-    </style>
 </body>
 </html>
