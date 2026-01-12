@@ -13,7 +13,6 @@
         .progress-step.active { background: #2563eb; color: white; }
         .progress-line { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #e2e8f0; transform: translateY(-50%); z-index: 1; }
 
-        /* Sorumluluk Notu */
         .disclaimer-box {
             background: #fff7ed;
             border: 1px solid #fdba74;
@@ -50,7 +49,8 @@
         <p style="text-align:center; font-size: 11px; margin-top: 8px; color: #64748b; font-weight: bold;" id="step-text">Model Seçimi</p>
     </div>
 
-    <div class="container" style="max-width: 800px;"> <div class="logo-container">
+    <div class="container" style="max-width: 800px;">
+        <div class="logo-container">
             <img src="assets/logo.png" alt="nfc.web.tr" class="logo-img">
         </div>
 
@@ -76,12 +76,12 @@
             <section id="section-2" style="margin-top:40px;">
                 <h3><span>2</span> Stand Ana Rengi (RAL)</h3>
                 <div class="grid-select">
-                    <div onclick="selectItem('color', 'Beyaz 9010', this, 2)" class="select-card"><span class="color-dot" style="background:#f4f4f4;"></span><small>Beyaz 9010</small></div>
-                    <div onclick="selectItem('color', 'Siyah 9005', this, 2)" class="select-card"><span class="color-dot" style="background:#0a0a0a;"></span><small>Siyah 9005</small></div>
-                    <div onclick="selectItem('color', 'Gri 7040', this, 2)" class="select-card"><span class="color-dot" style="background:#999da0;"></span><small>Gri 7040</small></div>
-                    <div onclick="selectItem('color', 'Yeşil 6018', this, 2)" class="select-card"><span class="color-dot" style="background:#57a639;"></span><small>Yeşil 6018</small></div>
-                    <div onclick="selectItem('color', 'Mavi 5015', this, 2)" class="select-card"><span class="color-dot" style="background:#2271b3;"></span><small>Mavi 5015</small></div>
-                    <div onclick="selectItem('color', 'Kırmızı 3020', this, 2)" class="select-card"><span class="color-dot" style="background:#c1121c;"></span><small>Kırmızı 3020</small></div>
+                    <div onclick="selectItem('color', 'Beyaz 9010', this, 2)" class="select-card"><span class="color-dot" style="background:#f4f4f4;"></span><small>9010</small></div>
+                    <div onclick="selectItem('color', 'Siyah 9005', this, 2)" class="select-card"><span class="color-dot" style="background:#0a0a0a;"></span><small>9005</small></div>
+                    <div onclick="selectItem('color', 'Gri 7040', this, 2)" class="select-card"><span class="color-dot" style="background:#999da0;"></span><small>7040</small></div>
+                    <div onclick="selectItem('color', 'Yeşil 6018', this, 2)" class="select-card"><span class="color-dot" style="background:#57a639;"></span><small>6018</small></div>
+                    <div onclick="selectItem('color', 'Mavi 5015', this, 2)" class="select-card"><span class="color-dot" style="background:#2271b3;"></span><small>5015</small></div>
+                    <div onclick="selectItem('color', 'Kırmızı 3020', this, 2)" class="select-card"><span class="color-dot" style="background:#c1121c;"></span><small>3020</small></div>
                 </div>
                 <input type="hidden" id="selectedBaseColor" required>
             </section>
@@ -132,8 +132,7 @@
                 <textarea id="address" placeholder="Teslimat Adresi" rows="3" style="margin-top:15px;" oninput="updateProgress(6)"></textarea>
                 
                 <div class="disclaimer-box">
-                    <span>⚠️</span>
-                    <p><strong>Önemli:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur. Lütfen bilgileri kontrol ediniz.</p>
+                    <strong>Dikkat:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur.
                 </div>
             </section>
 
@@ -175,9 +174,9 @@
                 selectedIcons.forEach(icon => {
                     let label, placeholder;
                     if (icon.value === "Google") {
-                        label = "Google İşletme Adı"; placeholder = "Örn: nfc web tr";
+                        label = "Google Isletme Adi"; placeholder = "Orn: nfc web tr";
                     } else if (icon.value === "WhatsApp") {
-                        label = "WhatsApp Numarası"; placeholder = "Örn: +90 5xx ...";
+                        label = "WhatsApp Numarasi"; placeholder = "Orn: +90 5xx ...";
                     } else {
                         label = `${icon.value} Linki`; placeholder = "https://...";
                     }
@@ -204,24 +203,27 @@
             const model = document.getElementById('selectedModel').value;
             const color = document.getElementById('selectedBaseColor').value;
             const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
 
-            if(!model || !color || !name) { alert("Lütfen formu eksiksiz doldurunuz."); return; }
+            if(!model || !color || !name || !phone || !address) { alert("Lutfen formu eksiksiz doldurunuz."); return; }
 
             let infoText = "";
             document.querySelectorAll('input[name="icons"]:checked').forEach(icon => {
                 const val = document.querySelector(`input[name="link_${icon.value}"]`).value;
-                const label = icon.value === "Google" ? "İşletme" : (icon.value === "WhatsApp" ? "No" : "Link");
-                infoText += `   - ${icon.value} (${label}): ${val}%0A`;
+                const label = icon.value === "Google" ? "Isletme" : (icon.value === "WhatsApp" ? "No" : "Link");
+                infoText += `- ${icon.value} (${label}): ${val}%0A`;
             });
 
-            const message = `*📦 YENİ NFC STAND SİPARİŞİ*%0A%0A` +
-                            `*⚙️ MODEL:* ${model}%0A` +
-                            `*🎨 RENK:* ${color}%0A` +
-                            `*✨ İKON:* ${document.getElementById('selectedIconColor').value}%0A%0A` +
-                            `*🔗 BİLGİLER:*%0A${infoText}%0A` +
-                            `*👤 MÜŞTERİ:* ${name}%0A` +
-                            `*📞 TEL:* ${document.getElementById('phone').value}%0A%0A` +
-                            `*⚠️ Not:* Müşteri girilen bilgilerin doğruluğunu onayladı.`;
+            const message = `YENI NFC STAND SIPARISI%0A%0A` +
+                            `MODEL: ${model}%0A` +
+                            `RENK: ${color}%0A` +
+                            `IKON RENGI: ${document.getElementById('selectedIconColor').value}%0A%0A` +
+                            `BILGILER:%0A${infoText}%0A` +
+                            `MUSTERI: ${name}%0A` +
+                            `TEL: ${phone}%0A` +
+                            `ADRES: ${address}%0A%0A` +
+                            `Not: Musteri girilen bilgilerin dogrulugunu onayladi.`;
 
             window.open(`https://wa.me/908503463240?text=${message}`, '_blank');
         }
