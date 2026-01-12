@@ -21,9 +21,7 @@
             border-radius: 12px;
             font-size: 13px;
             margin-top: 20px;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
+            text-align: center;
         }
 
         .logo-container { text-align: center; margin-bottom: 20px; }
@@ -45,11 +43,20 @@
             font-family: inherit;
             font-size: 14px;
         }
+
+        /* Teşekkür Sayfası Stili */
+        #thankYouPage {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .success-icon { font-size: 50px; color: #22c55e; margin-bottom: 20px; }
+        .web-btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #2563eb; color: white; border-radius: 10px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="progress-container">
+    <div class="progress-container" id="progressBarUI">
         <div class="progress-bar">
             <div class="progress-line"></div>
             <div id="step-1" class="progress-step active">1</div>
@@ -63,97 +70,113 @@
     </div>
 
     <div class="container" style="max-width: 800px;">
+        
         <div class="logo-container">
             <img src="assets/logo.png" alt="nfc.web.tr" class="logo-img">
         </div>
 
-        <h1 style="text-align: center; font-size: 24px; margin-bottom: 40px;">NFC Stand Üretim Formu</h1>
+        <div id="formWrapper">
+            <h1 style="text-align: center; font-size: 24px; margin-bottom: 40px;">NFC Stand Üretim Formu</h1>
 
-        <form id="nfcForm">
-            <section id="section-1">
-                <h3><span>1</span> Stand Modeli Seçiniz</h3>
-                <div class="grid-select">
-                    <div onclick="selectItem('model', '414', this, 1)" class="select-card">
-                        <img src="assets/414.png" class="product-img"><strong>Model 414</strong>
+            <form id="nfcForm">
+                <section id="section-1">
+                    <h3><span>1</span> Stand Modeli Seçiniz</h3>
+                    <div class="grid-select">
+                        <div onclick="selectItem('model', '414', this, 1)" class="select-card">
+                            <img src="assets/414.png" class="product-img"><strong>Model 414</strong>
+                        </div>
+                        <div onclick="selectItem('model', '411', this, 1)" class="select-card">
+                            <img src="assets/411.png" class="product-img"><strong>Model 411</strong>
+                        </div>
+                        <div onclick="selectItem('model', '412', this, 1)" class="select-card">
+                            <img src="assets/412.png" class="product-img"><strong>Model 412</strong>
+                        </div>
                     </div>
-                    <div onclick="selectItem('model', '411', this, 1)" class="select-card">
-                        <img src="assets/411.png" class="product-img"><strong>Model 411</strong>
+                    <input type="hidden" id="selectedModel" required>
+                </section>
+
+                <section id="section-2" style="margin-top:40px;">
+                    <h3><span>2</span> Stand Ana Rengi (RAL)</h3>
+                    <div class="grid-select">
+                        <div onclick="selectItem('color', 'Beyaz 9010', this, 2)" class="select-card"><span class="color-dot" style="background:#f4f4f4;"></span><small>9010</small></div>
+                        <div onclick="selectItem('color', 'Siyah 9005', this, 2)" class="select-card"><span class="color-dot" style="background:#0a0a0a;"></span><small>9005</small></div>
+                        <div onclick="selectItem('color', 'Gri 7040', this, 2)" class="select-card"><span class="color-dot" style="background:#999da0;"></span><small>7040</small></div>
+                        <div onclick="selectItem('color', 'Yeşil 6018', this, 2)" class="select-card"><span class="color-dot" style="background:#57a639;"></span><small>6018</small></div>
+                        <div onclick="selectItem('color', 'Mavi 5015', this, 2)" class="select-card"><span class="color-dot" style="background:#2271b3;"></span><small>5015</small></div>
+                        <div onclick="selectItem('color', 'Kırmızı 3020', this, 2)" class="select-card"><span class="color-dot" style="background:#c1121c;"></span><small>3020</small></div>
                     </div>
-                    <div onclick="selectItem('model', '412', this, 1)" class="select-card">
-                        <img src="assets/412.png" class="product-img"><strong>Model 412</strong>
+                    <input type="hidden" id="selectedBaseColor" required>
+                </section>
+
+                <section id="section-3" style="margin-top:40px;">
+                    <h3><span>3</span> İkon Seçimi (Max 3)</h3>
+                    <div class="grid-select-icons">
+                        <label class="select-card"><input type="checkbox" name="icons" value="Google" onchange="handleIconChange(this)"><img src="assets/8.png" class="icon-img"><br><small>Google</small></label>
+                        <label class="select-card"><input type="checkbox" name="icons" value="Instagram" onchange="handleIconChange(this)"><img src="assets/6.png" class="icon-img"><br><small>Instagram</small></label>
+                        <label class="select-card"><input type="checkbox" name="icons" value="WhatsApp" onchange="handleIconChange(this)"><img src="assets/5.png" class="icon-img"><br><small>WhatsApp</small></label>
+                        <label class="select-card"><input type="checkbox" name="icons" value="TikTok" onchange="handleIconChange(this)"><img src="assets/9.png" class="icon-img"><br><small>TikTok</small></label>
+                        <label class="select-card"><input type="checkbox" name="icons" value="Websitesi" onchange="handleIconChange(this)"><img src="assets/4.png" class="icon-img"><br><small>Web</small></label>
+                        <label class="select-card"><input type="checkbox" name="icons" value="Tripadvisor" onchange="handleIconChange(this)"><img src="assets/10.png" class="icon-img"><br><small>Tripadvisor</small></label>
+                        <label class="select-card"><input type="checkbox" name="icons" value="Trustpilot" onchange="handleIconChange(this)"><img src="assets/11.png" class="icon-img"><br><small>Trustpilot</small></label>
                     </div>
-                </div>
-                <input type="hidden" id="selectedModel" required>
-            </section>
+                </section>
 
-            <section id="section-2" style="margin-top:40px;">
-                <h3><span>2</span> Stand Ana Rengi (RAL)</h3>
-                <div class="grid-select">
-                    <div onclick="selectItem('color', 'Beyaz 9010', this, 2)" class="select-card"><span class="color-dot" style="background:#f4f4f4;"></span><small>9010</small></div>
-                    <div onclick="selectItem('color', 'Siyah 9005', this, 2)" class="select-card"><span class="color-dot" style="background:#0a0a0a;"></span><small>9005</small></div>
-                    <div onclick="selectItem('color', 'Gri 7040', this, 2)" class="select-card"><span class="color-dot" style="background:#999da0;"></span><small>7040</small></div>
-                    <div onclick="selectItem('color', 'Yeşil 6018', this, 2)" class="select-card"><span class="color-dot" style="background:#57a639;"></span><small>6018</small></div>
-                    <div onclick="selectItem('color', 'Mavi 5015', this, 2)" class="select-card"><span class="color-dot" style="background:#2271b3;"></span><small>5015</small></div>
-                    <div onclick="selectItem('color', 'Kırmızı 3020', this, 2)" class="select-card"><span class="color-dot" style="background:#c1121c;"></span><small>3020</small></div>
-                </div>
-                <input type="hidden" id="selectedBaseColor" required>
-            </section>
-
-            <section id="section-3" style="margin-top:40px;">
-                <h3><span>3</span> İkon Seçimi (Max 3)</h3>
-                <div class="grid-select-icons">
-                    <label class="select-card"><input type="checkbox" name="icons" value="Google" onchange="handleIconChange(this)"><img src="assets/8.png" class="icon-img"><br><small>Google</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="Instagram" onchange="handleIconChange(this)"><img src="assets/6.png" class="icon-img"><br><small>Instagram</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="WhatsApp" onchange="handleIconChange(this)"><img src="assets/5.png" class="icon-img"><br><small>WhatsApp</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="TikTok" onchange="handleIconChange(this)"><img src="assets/9.png" class="icon-img"><br><small>TikTok</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="Websitesi" onchange="handleIconChange(this)"><img src="assets/4.png" class="icon-img"><br><small>Web</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="Tripadvisor" onchange="handleIconChange(this)"><img src="assets/10.png" class="icon-img"><br><small>Tripadvisor</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="Trustpilot" onchange="handleIconChange(this)"><img src="assets/11.png" class="icon-img"><br><small>Trustpilot</small></label>
-                </div>
-            </section>
-
-            <section id="section-4" style="margin-top:40px;">
-                <h3><span>4</span> İkon Rengi</h3>
-                <div class="grid-select">
-                    <div onclick="selectItem('iconColor', 'Orijinal', this, 4)" class="select-card">
-                        <div style="background: linear-gradient(45deg, #4285F4, #EA4335, #34A853); width:30px; height:30px; border-radius:50%; margin: 0 auto 5px;"></div>
-                        <small>Orijinal</small>
+                <section id="section-4" style="margin-top:40px;">
+                    <h3><span>4</span> İkon Rengi</h3>
+                    <div class="grid-select">
+                        <div onclick="selectItem('iconColor', 'Orijinal', this, 4)" class="select-card">
+                            <div style="background: linear-gradient(45deg, #4285F4, #EA4335, #34A853); width:30px; height:30px; border-radius:50%; margin: 0 auto 5px;"></div>
+                            <small>Orijinal</small>
+                        </div>
+                        <div onclick="selectItem('iconColor', 'Siyah', this, 4)" class="select-card">
+                            <div style="background:#000; width:30px; height:30px; border-radius:50%; margin: 0 auto 5px;"></div>
+                            <small>Siyah</small>
+                        </div>
+                        <div onclick="selectItem('iconColor', 'Beyaz', this, 4)" class="select-card">
+                            <div style="background:#fff; border:1px solid #ddd; width:30px; height:30px; border-radius:50%; margin: 0 auto 5px;"></div>
+                            <small>Beyaz</small>
+                        </div>
                     </div>
-                    <div onclick="selectItem('iconColor', 'Siyah', this, 4)" class="select-card">
-                        <div style="background:#000; width:30px; height:30px; border-radius:50%; margin: 0 auto 5px;"></div>
-                        <small>Siyah</small>
+                    <input type="hidden" id="selectedIconColor" value="Orijinal">
+                </section>
+
+                <div id="linksSection" class="hidden-section">
+                    <h3><span>5</span> İkon Bilgileri</h3>
+                    <div id="dynamicLinks"></div>
+                </div>
+
+                <section id="section-6" style="margin-top:40px;">
+                    <h3><span>6</span> İletişim ve Teslimat</h3>
+                    <div class="vertical-inputs">
+                        <input type="text" id="name" placeholder="Ad Soyad" oninput="updateProgress(6)">
+                        <input type="tel" id="phone" placeholder="Telefon" oninput="updateProgress(6)">
+                        <textarea id="address" placeholder="Teslimat Adresi" rows="3" oninput="updateProgress(6)"></textarea>
+                        <input type="text" id="referans" placeholder="Referans / Tavsiye Eden (Opsiyonel)" oninput="updateProgress(6)">
                     </div>
-                    <div onclick="selectItem('iconColor', 'Beyaz', this, 4)" class="select-card">
-                        <div style="background:#fff; border:1px solid #ddd; width:30px; height:30px; border-radius:50%; margin: 0 auto 5px;"></div>
-                        <small>Beyaz</small>
+                    
+                    <div class="disclaimer-box">
+                        <strong>Dikkat:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur.
                     </div>
-                </div>
-                <input type="hidden" id="selectedIconColor" value="Orijinal">
-            </section>
+                </section>
 
-            <div id="linksSection" class="hidden-section">
-                <h3><span>5</span> İkon Bilgileri</h3>
-                <div id="dynamicLinks"></div>
-            </div>
+                <button type="button" onclick="sendWhatsApp()" class="btn-whatsapp" style="margin-top: 40px;">
+                    Siparişi WhatsApp ile Gönder
+                </button>
+            </form>
+        </div>
 
-            <section id="section-6" style="margin-top:40px;">
-                <h3><span>6</span> İletişim ve Teslimat</h3>
-                <div class="vertical-inputs">
-                    <input type="text" id="name" placeholder="Ad Soyad" oninput="updateProgress(6)">
-                    <input type="tel" id="phone" placeholder="Telefon" oninput="updateProgress(6)">
-                    <textarea id="address" placeholder="Teslimat Adresi" rows="3" oninput="updateProgress(6)"></textarea>
-                    <input type="text" id="referans" placeholder="Referans / Tavsiye Eden (Opsiyonel)" oninput="updateProgress(6)">
-                </div>
-                
-                <div class="disclaimer-box">
-                    <strong>Dikkat:</strong> Girilen tüm bilgilerin doğruluğundan müşteri sorumludur.
-                </div>
-            </section>
+        <div id="thankYouPage">
+            <div class="success-icon">✓</div>
+            <h2 style="color: #1e293b; margin-bottom: 15px;">Sipariş Talebiniz Oluşturuldu!</h2>
+            <p style="color: #64748b; line-height: 1.6;">
+                Tasarım ekibimiz stand hazır olunca WhatsApp üzerinden onayınıza gönderecek.
+            </p>
+            <p style="color: #64748b; margin-top: 10px;">
+                Diğer NFC ürünlerimiz için websitemizi ziyaret edin.
+            </p>
+            <a href="https://nfc.web.tr" class="web-btn" target="_blank">Websitemizi Ziyaret Edin</a>
+        </div>
 
-            <button type="button" onclick="sendWhatsApp()" class="btn-whatsapp" style="margin-top: 40px;">
-                Siparişi WhatsApp ile Gönder
-            </button>
-        </form>
     </div>
 
     <script>
@@ -242,7 +265,13 @@
                             `REFERANS: ${referans || "Belirtilmedi"}%0A%0A` +
                             `Not: Musteri girilen bilgilerin dogrulugunu onayladi.`;
 
+            // WhatsApp linkini aç
             window.open(`https://wa.me/908503463240?text=${message}`, '_blank');
+
+            // Formu gizle, Teşekkür mesajını göster
+            document.getElementById('formWrapper').style.display = 'none';
+            document.getElementById('progressBarUI').style.display = 'none';
+            document.getElementById('thankYouPage').style.display = 'block';
         }
     </script>
 </body>
