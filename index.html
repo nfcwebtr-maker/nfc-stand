@@ -34,10 +34,14 @@
         .grid-select-icons { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
         
         /* İletişim Alanı Alt Alta Düzen */
-        .vertical-inputs input {
+        .vertical-inputs input, .vertical-inputs textarea, .full-width-input {
             display: block;
             width: 100%;
             margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -135,8 +139,9 @@
                 <div class="vertical-inputs">
                     <input type="text" id="name" placeholder="Ad Soyad" oninput="updateProgress(6)">
                     <input type="tel" id="phone" placeholder="Telefon" oninput="updateProgress(6)">
+                    <textarea id="address" placeholder="Teslimat Adresi" rows="3" oninput="updateProgress(6)"></textarea>
+                    <input type="text" id="referans" placeholder="Referans / Tavsiye Eden (Opsiyonel)" oninput="updateProgress(6)">
                 </div>
-                <textarea id="address" placeholder="Teslimat Adresi" rows="3" oninput="updateProgress(6)"></textarea>
                 
                 <div class="disclaimer-box">
                     <strong>Dikkat:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur.
@@ -212,12 +217,14 @@
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
+            const referans = document.getElementById('referans').value;
 
             if(!model || !color || !name || !phone || !address) { alert("Lutfen formu eksiksiz doldurunuz."); return; }
 
             let infoText = "";
             document.querySelectorAll('input[name="icons"]:checked').forEach(icon => {
-                const val = document.querySelector(`input[name="link_${icon.value}"]`).value;
+                const valInput = document.querySelector(`input[name="link_${icon.value}"]`);
+                const val = valInput ? valInput.value : "";
                 const label = icon.value === "Google" ? "Isletme" : (icon.value === "WhatsApp" ? "No" : "Link");
                 infoText += `- ${icon.value} (${label}): ${val}%0A`;
             });
@@ -229,7 +236,8 @@
                             `BILGILER:%0A${infoText}%0A` +
                             `MUSTERI: ${name}%0A` +
                             `TEL: ${phone}%0A` +
-                            `ADRES: ${address}%0A%0A` +
+                            `ADRES: ${address}%0A` +
+                            `REFERANS: ${referans || "Belirtilmedi"}%0A%0A` +
                             `Not: Musteri girilen bilgilerin dogrulugunu onayladi.`;
 
             window.open(`https://wa.me/908503463240?text=${message}`, '_blank');
