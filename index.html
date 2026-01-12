@@ -34,7 +34,7 @@
         .grid-select-icons { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
         
         /* İletişim Alanı Alt Alta Düzen */
-        .vertical-inputs input, .vertical-inputs textarea, .full-width-input {
+        .vertical-inputs input, .vertical-inputs textarea {
             display: block;
             width: 100%;
             margin-bottom: 15px;
@@ -42,6 +42,8 @@
             border-radius: 10px;
             border: 1px solid #e2e8f0;
             box-sizing: border-box;
+            font-family: inherit;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -105,8 +107,8 @@
                     <label class="select-card"><input type="checkbox" name="icons" value="WhatsApp" onchange="handleIconChange(this)"><img src="assets/5.png" class="icon-img"><br><small>WhatsApp</small></label>
                     <label class="select-card"><input type="checkbox" name="icons" value="TikTok" onchange="handleIconChange(this)"><img src="assets/9.png" class="icon-img"><br><small>TikTok</small></label>
                     <label class="select-card"><input type="checkbox" name="icons" value="Websitesi" onchange="handleIconChange(this)"><img src="assets/4.png" class="icon-img"><br><small>Web</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="Tripadvisor" onchange="handleIconChange(this)"><img src="assets/10.png" class="icon-img"><br><small>Trip</small></label>
-                    <label class="select-card"><input type="checkbox" name="icons" value="Trustpilot" onchange="handleIconChange(this)"><img src="assets/11.png" class="icon-img"><br><small>Trust</small></label>
+                    <label class="select-card"><input type="checkbox" name="icons" value="Tripadvisor" onchange="handleIconChange(this)"><img src="assets/10.png" class="icon-img"><br><small>Tripadvisor</small></label>
+                    <label class="select-card"><input type="checkbox" name="icons" value="Trustpilot" onchange="handleIconChange(this)"><img src="assets/11.png" class="icon-img"><br><small>Trustpilot</small></label>
                 </div>
             </section>
 
@@ -144,7 +146,7 @@
                 </div>
                 
                 <div class="disclaimer-box">
-                    <strong>Dikkat:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur.
+                    <strong>Dikkat:</strong> Girilen tüm bilgilerin doğruluğundan müşteri sorumludur.
                 </div>
             </section>
 
