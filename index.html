@@ -31,7 +31,6 @@
         .hidden-section { display: none; margin-top: 30px; background: #f8fafc; padding: 25px; border-radius: 20px; border: 1px solid #e2e8f0; }
         .grid-select-icons { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
         
-        /* İletişim Alanı Alt Alta Düzen */
         .vertical-inputs input, .vertical-inputs textarea {
             display: block;
             width: 100%;
@@ -44,7 +43,6 @@
             font-size: 14px;
         }
 
-        /* Teşekkür Sayfası Stili */
         #thankYouPage {
             display: none;
             text-align: center;
@@ -151,6 +149,7 @@
                         <input type="text" id="name" placeholder="Ad Soyad" oninput="updateProgress(6)">
                         <input type="tel" id="phone" placeholder="Telefon" oninput="updateProgress(6)">
                         <textarea id="address" placeholder="Teslimat Adresi" rows="3" oninput="updateProgress(6)"></textarea>
+                        <textarea id="notlar" placeholder="Notlar, Adet veya Ozel Istekleriniz..." rows="2" oninput="updateProgress(6)"></textarea>
                         <input type="text" id="referans" placeholder="Referans / Tavsiye Eden (Opsiyonel)" oninput="updateProgress(6)">
                     </div>
                     
@@ -243,6 +242,7 @@
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
             const referans = document.getElementById('referans').value;
+            const notlar = document.getElementById('notlar').value;
 
             if(!model || !color || !name || !phone || !address) { alert("Lutfen formu eksiksiz doldurunuz."); return; }
 
@@ -262,13 +262,12 @@
                             `MUSTERI: ${name}%0A` +
                             `TEL: ${phone}%0A` +
                             `ADRES: ${address}%0A` +
+                            `NOTLAR: ${notlar || "Yok"}%0A` +
                             `REFERANS: ${referans || "Belirtilmedi"}%0A%0A` +
                             `Not: Musteri girilen bilgilerin dogrulugunu onayladi.`;
 
-            // WhatsApp linkini aç
             window.open(`https://wa.me/908503463240?text=${message}`, '_blank');
 
-            // Formu gizle, Teşekkür mesajını göster
             document.getElementById('formWrapper').style.display = 'none';
             document.getElementById('progressBarUI').style.display = 'none';
             document.getElementById('thankYouPage').style.display = 'block';
