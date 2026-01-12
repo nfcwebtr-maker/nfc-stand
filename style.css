@@ -1,0 +1,159 @@
+/* Google Fonts - Modern ve Temiz */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --success-color: #22c55e;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --border-color: #e2e8f0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+    text-align: center;
+    color: var(--secondary-color);
+    font-weight: 800;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+/* Bölüm Başlıkları */
+h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    color: #334155;
+}
+
+h3 span {
+    background: var(--primary-color);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    margin-right: 12px;
+}
+
+/* Seçim Kartları (Model ve Renk) */
+.grid-select {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.select-card {
+    border: 2px solid var(--border-color);
+    padding: 15px;
+    border-radius: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.select-card:hover {
+    border-color: var(--primary-color);
+    background: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.select-card.active {
+    border-color: var(--primary-color);
+    background: #eff6ff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    transform: scale(1.02);
+}
+
+/* RAL Renk Daireleri */
+.color-dot {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    border: 2px solid rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* Form Elemanları */
+input, textarea, select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.05);
+}
+
+.input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* WhatsApp Butonu */
+.btn-whatsapp {
+    width: 100%;
+    background-color: var(--success-color);
+    color: white;
+    padding: 20px;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-whatsapp:hover {
+    background-color: #16a34a;
+    transform: translateY(2px);
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
+}
+
+/* Mobil Uyumluluk */
+@media (max-width: 600px) {
+    .input-group { grid-template-columns: 1fr; }
+    .container { padding: 20px; }
+}
