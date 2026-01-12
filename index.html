@@ -32,6 +32,13 @@
         .icon-img { height: 45px; }
         .hidden-section { display: none; margin-top: 30px; background: #f8fafc; padding: 25px; border-radius: 20px; border: 1px solid #e2e8f0; }
         .grid-select-icons { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+        
+        /* İletişim Alanı Alt Alta Düzen */
+        .vertical-inputs input {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -60,14 +67,14 @@
             <section id="section-1">
                 <h3><span>1</span> Stand Modeli Seçiniz</h3>
                 <div class="grid-select">
+                    <div onclick="selectItem('model', '414', this, 1)" class="select-card">
+                        <img src="assets/414.png" class="product-img"><strong>Model 414</strong>
+                    </div>
                     <div onclick="selectItem('model', '411', this, 1)" class="select-card">
                         <img src="assets/411.png" class="product-img"><strong>Model 411</strong>
                     </div>
                     <div onclick="selectItem('model', '412', this, 1)" class="select-card">
                         <img src="assets/412.png" class="product-img"><strong>Model 412</strong>
-                    </div>
-                    <div onclick="selectItem('model', '414', this, 1)" class="select-card">
-                        <img src="assets/414.png" class="product-img"><strong>Model 414</strong>
                     </div>
                 </div>
                 <input type="hidden" id="selectedModel" required>
@@ -125,11 +132,11 @@
 
             <section id="section-6" style="margin-top:40px;">
                 <h3><span>6</span> İletişim ve Teslimat</h3>
-                <div class="input-group">
+                <div class="vertical-inputs">
                     <input type="text" id="name" placeholder="Ad Soyad" oninput="updateProgress(6)">
                     <input type="tel" id="phone" placeholder="Telefon" oninput="updateProgress(6)">
                 </div>
-                <textarea id="address" placeholder="Teslimat Adresi" rows="3" style="margin-top:15px;" oninput="updateProgress(6)"></textarea>
+                <textarea id="address" placeholder="Teslimat Adresi" rows="3" oninput="updateProgress(6)"></textarea>
                 
                 <div class="disclaimer-box">
                     <strong>Dikkat:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur.
