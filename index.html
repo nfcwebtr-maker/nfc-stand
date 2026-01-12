@@ -13,17 +13,25 @@
         .progress-step.active { background: #2563eb; color: white; }
         .progress-line { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #e2e8f0; transform: translateY(-50%); z-index: 1; }
 
-        .disclaimer-box {
-            background: #fff7ed;
-            border: 1px solid #fdba74;
-            color: #9a3412;
+        /* Instagram Örnek Çalışmalar Bölümü */
+        .instagram-link-card {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
             padding: 15px;
-            border-radius: 12px;
-            font-size: 13px;
-            margin-top: 20px;
+            border-radius: 15px;
             text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s;
         }
+        .instagram-link-card:hover { transform: scale(1.02); }
 
+        .disclaimer-box { background: #fff7ed; border: 1px solid #fdba74; color: #9a3412; padding: 15px; border-radius: 12px; font-size: 13px; margin-top: 20px; text-align: center; }
         .logo-container { text-align: center; margin-bottom: 20px; }
         .logo-img { max-width: 160px; }
         .product-img, .icon-img { width: 100%; height: 80px; object-fit: contain; margin-bottom: 10px; }
@@ -31,23 +39,9 @@
         .hidden-section { display: none; margin-top: 30px; background: #f8fafc; padding: 25px; border-radius: 20px; border: 1px solid #e2e8f0; }
         .grid-select-icons { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
         
-        .vertical-inputs input, .vertical-inputs textarea {
-            display: block;
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            box-sizing: border-box;
-            font-family: inherit;
-            font-size: 14px;
-        }
+        .vertical-inputs input, .vertical-inputs textarea { display: block; width: 100%; margin-bottom: 15px; padding: 12px; border-radius: 10px; border: 1px solid #e2e8f0; box-sizing: border-box; font-family: inherit; font-size: 14px; }
 
-        #thankYouPage {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
+        #thankYouPage { display: none; text-align: center; padding: 40px 20px; }
         .success-icon { font-size: 50px; color: #22c55e; margin-bottom: 20px; }
         .web-btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #2563eb; color: white; border-radius: 10px; text-decoration: none; font-weight: bold; }
     </style>
@@ -68,7 +62,6 @@
     </div>
 
     <div class="container" style="max-width: 800px;">
-        
         <div class="logo-container">
             <img src="assets/logo.png" alt="nfc.web.tr" class="logo-img">
         </div>
@@ -91,9 +84,16 @@
                         </div>
                     </div>
                     <input type="hidden" id="selectedModel" required>
+
+                    <div style="margin-top: 30px;">
+                        <h4 style="font-size: 16px; color: #1e293b; margin-bottom: 10px;">Örnek Çalışmalarımız</h4>
+                        <a href="https://www.instagram.com/stories/highlights/18343650790229771/" target="_blank" class="instagram-link-card">
+                            <span>📸 Instagram Örneklerini Gör</span>
+                        </a>
+                    </div>
                 </section>
 
-                <section id="section-2" style="margin-top:40px;">
+                <section id="section-2" style="margin-top:50px;">
                     <h3><span>2</span> Stand Ana Rengi (RAL)</h3>
                     <div class="grid-select">
                         <div onclick="selectItem('color', 'Beyaz 9010', this, 2)" class="select-card"><span class="color-dot" style="background:#f4f4f4;"></span><small>9010</small></div>
@@ -152,7 +152,6 @@
                         <textarea id="notlar" placeholder="Notlar, Adet veya Ozel Istekleriniz..." rows="2" oninput="updateProgress(6)"></textarea>
                         <input type="text" id="referans" placeholder="Referans / Tavsiye Eden (Opsiyonel)" oninput="updateProgress(6)">
                     </div>
-                    
                     <div class="disclaimer-box">
                         <strong>Dikkat:</strong> Girilen tüm bilgilerin (link, işletme adı, numara) doğruluğundan müşteri sorumludur.
                     </div>
@@ -166,16 +165,11 @@
 
         <div id="thankYouPage">
             <div class="success-icon">✓</div>
-            <h2 style="color: #1e293b; margin-bottom: 15px;">Sipariş Talebiniz Oluşturuldu!</h2>
-            <p style="color: #64748b; line-height: 1.6;">
-                Tasarım ekibimiz stand hazır olunca WhatsApp üzerinden onayınıza gönderecek.
-            </p>
-            <p style="color: #64748b; margin-top: 10px;">
-                Diğer NFC ürünlerimiz için websitemizi ziyaret edin.
-            </p>
+            <h2>Sipariş Talebiniz Oluşturuldu!</h2>
+            <p>Tasarım ekibimiz stand hazır olunca WhatsApp üzerinden onayınıza gönderecek.</p>
+            <p>Diğer NFC ürünlerimiz için websitemizi ziyaret edin.</p>
             <a href="https://nfc.web.tr" class="web-btn" target="_blank">Websitemizi Ziyaret Edin</a>
         </div>
-
     </div>
 
     <script>
@@ -185,7 +179,6 @@
             if(type === 'model') document.getElementById('selectedModel').value = value;
             if(type === 'color') document.getElementById('selectedBaseColor').value = value;
             if(type === 'iconColor') document.getElementById('selectedIconColor').value = value;
-            
             element.parentElement.querySelectorAll('.select-card').forEach(card => card.classList.remove('active'));
             element.classList.add('active');
             updateProgress(step + 1);
@@ -204,34 +197,21 @@
             const dynamicLinks = document.getElementById('dynamicLinks');
             const selectedIcons = document.querySelectorAll('input[name="icons"]:checked');
             dynamicLinks.innerHTML = '';
-            
             if (selectedIcons.length > 0) {
                 container.style.display = 'block';
                 selectedIcons.forEach(icon => {
                     let label, placeholder;
-                    if (icon.value === "Google") {
-                        label = "Google Isletme Adi"; placeholder = "Orn: nfc web tr";
-                    } else if (icon.value === "WhatsApp") {
-                        label = "WhatsApp Numarasi"; placeholder = "Orn: +90 5xx ...";
-                    } else {
-                        label = `${icon.value} Linki`; placeholder = "https://...";
-                    }
+                    if (icon.value === "Google") { label = "Google Isletme Adi"; placeholder = "Orn: nfc web tr"; }
+                    else if (icon.value === "WhatsApp") { label = "WhatsApp Numarasi"; placeholder = "Orn: +90 5xx ..."; }
+                    else { label = `${icon.value} Linki`; placeholder = "https://..."; }
                     
-                    dynamicLinks.innerHTML += `
-                        <div style="margin-bottom:15px;">
-                            <label style="display:block; font-size:13px; font-weight:600; margin-bottom:5px;">${label}:</label>
-                            <input type="text" name="link_${icon.value}" placeholder="${placeholder}" required 
-                                   style="width:100%; padding:12px; border-radius:10px; border:1px solid #e2e8f0;">
-                        </div>`;
+                    dynamicLinks.innerHTML += `<div style="margin-bottom:15px;"><label style="display:block; font-size:13px; font-weight:600; margin-bottom:5px;">${label}:</label><input type="text" name="link_${icon.value}" placeholder="${placeholder}" required style="width:100%; padding:12px; border-radius:10px; border:1px solid #e2e8f0;"></div>`;
                 });
             } else { container.style.display = 'none'; }
         }
 
         function updateProgress(step) {
-            document.querySelectorAll('.progress-step').forEach((el, i) => {
-                if (i < step) el.classList.add('active');
-                else el.classList.remove('active');
-            });
+            document.querySelectorAll('.progress-step').forEach((el, i) => { if (i < step) el.classList.add('active'); else el.classList.remove('active'); });
             document.getElementById('step-text').innerText = stepTexts[step] || stepTexts[6];
         }
 
@@ -243,31 +223,15 @@
             const address = document.getElementById('address').value;
             const referans = document.getElementById('referans').value;
             const notlar = document.getElementById('notlar').value;
-
             if(!model || !color || !name || !phone || !address) { alert("Lutfen formu eksiksiz doldurunuz."); return; }
-
             let infoText = "";
             document.querySelectorAll('input[name="icons"]:checked').forEach(icon => {
-                const valInput = document.querySelector(`input[name="link_${icon.value}"]`);
-                const val = valInput ? valInput.value : "";
+                const val = document.querySelector(`input[name="link_${icon.value}"]`).value;
                 const label = icon.value === "Google" ? "Isletme" : (icon.value === "WhatsApp" ? "No" : "Link");
                 infoText += `- ${icon.value} (${label}): ${val}%0A`;
             });
-
-            const message = `YENI NFC STAND SIPARISI%0A%0A` +
-                            `MODEL: ${model}%0A` +
-                            `RENK: ${color}%0A` +
-                            `IKON RENGI: ${document.getElementById('selectedIconColor').value}%0A%0A` +
-                            `BILGILER:%0A${infoText}%0A` +
-                            `MUSTERI: ${name}%0A` +
-                            `TEL: ${phone}%0A` +
-                            `ADRES: ${address}%0A` +
-                            `NOTLAR: ${notlar || "Yok"}%0A` +
-                            `REFERANS: ${referans || "Belirtilmedi"}%0A%0A` +
-                            `Not: Musteri girilen bilgilerin dogrulugunu onayladi.`;
-
+            const message = `YENI NFC STAND SIPARISI%0A%0AMODEL: ${model}%0ARENK: ${color}%0AIKON RENGI: ${document.getElementById('selectedIconColor').value}%0A%0ABILGILER:%0A${infoText}%0AMUSTERI: ${name}%0ATEL: ${phone}%0AADRES: ${address}%0ANOTLAR: ${notlar || "Yok"}%0AREFERANS: ${referans || "Belirtilmedi"}%0A%0ANot: Musteri girilen bilgilerin dogrulugunu onayladi.`;
             window.open(`https://wa.me/908503463240?text=${message}`, '_blank');
-
             document.getElementById('formWrapper').style.display = 'none';
             document.getElementById('progressBarUI').style.display = 'none';
             document.getElementById('thankYouPage').style.display = 'block';
